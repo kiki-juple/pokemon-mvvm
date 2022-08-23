@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Pokemon</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="loading">Loading, please wait.</string>
+    <string name="pokemon">pokemon</string>
+    <string name="stats">STATS</string>
+    <string name="ability">ABILITIES</string>
+    <string name="exp">EXP\n%d</string>
+    <string name="weight">WEIGHT\n%d</string>
+    <string name="height">HEIGHT\n%d</string>
+    <string name="stat_item">%s: %d</string>
+    <string name="cannot_load_detail">Cannot load detail.</string>
+    <string name="try_again">Try again</string>
+</resources>
