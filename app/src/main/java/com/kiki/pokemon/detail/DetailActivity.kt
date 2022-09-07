@@ -24,6 +24,8 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         val pokemon = intent.getParcelableExtra<Pokemon>(POKEMON)
         if (pokemon != null) {
             showDetailPokemon(pokemon.name)
@@ -96,6 +98,11 @@ class DetailActivity : AppCompatActivity() {
                 )
             )
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     companion object {

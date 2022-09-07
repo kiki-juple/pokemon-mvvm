@@ -28,7 +28,7 @@ class HomeActivity : AppCompatActivity() {
                 startActivity(
                     Intent(
                         this,
-                        Class.forName("com.kiki.pokemon.favorite.FavoriteActivity")
+                        Class.forName("com.kiki.pokemon.favorite.ui.FavoriteActivity")
                     )
                 )
             } catch (e: Exception) {

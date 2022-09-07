@@ -13,10 +13,9 @@
         <dist:fusing dist:include="true" />
     </dist:module>
 
-    <application
-        android:icon="@mipmap/ic_launcher">
+    <application android:icon="@mipmap/ic_launcher">
         <activity
-            android:name=".FavoriteActivity"
+            android:name=".ui.FavoriteActivity"
             android:exported="false" />
     </application>
 
