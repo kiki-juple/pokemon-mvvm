@@ -4,13 +4,13 @@ import com.google.gson.annotations.SerializedName
 
 data class PokemonDetailResponse(
 
-    @SerializedName("abilities") val abilities: List<Abilities>? = null,
-    @SerializedName("base_experience") val baseExperience: Int? = null,
-    @SerializedName("height") val height: Int? = null,
-    @SerializedName("id") val id: Int? = null,
-    @SerializedName("sprites") val sprites: Sprites? = null,
-    @SerializedName("stats") val stats: List<Stats>? = null,
-    @SerializedName("weight") val weight: Int? = null
+    @SerializedName("abilities") val abilities: List<Abilities>,
+    @SerializedName("base_experience") val baseExperience: Int,
+    @SerializedName("height") val height: Int,
+    @SerializedName("id") var id: Int,
+    @SerializedName("sprites") val sprites: Sprites,
+    @SerializedName("stats") val stats: List<Stats>,
+    @SerializedName("weight") val weight: Int
 )
 
 data class Abilities(@SerializedName("ability") val ability: Ability)

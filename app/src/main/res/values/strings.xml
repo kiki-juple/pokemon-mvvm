@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Pokemon</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="loading">Loading, please wait.</string>
     <string name="pokemon">pokemon</string>
     <string name="stats">STATS</string>
@@ -11,4 +10,6 @@
     <string name="stat_item">%s: %d</string>
     <string name="cannot_load_detail">Cannot load detail.</string>
     <string name="try_again">Try again</string>
+    <string name="favorite_button">Favorite button</string>
+    <string name="title_favorite">Favorite</string>
 </resources>

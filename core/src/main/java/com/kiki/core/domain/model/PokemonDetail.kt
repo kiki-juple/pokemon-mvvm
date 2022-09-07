@@ -1,9 +1,5 @@
 package com.kiki.core.domain.model
 
-import com.kiki.core.data.source.remote.response.Abilities
-import com.kiki.core.data.source.remote.response.Sprites
-import com.kiki.core.data.source.remote.response.Stats
-
 data class PokemonDetail(
     val abilities: List<Abilities>,
     val baseExperience: Int,

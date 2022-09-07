@@ -10,20 +10,8 @@ object DataMapper {
         input.map { PokemonEntity(null, it.name) }
 
     fun mapEntitiesToDomain(input: List<PokemonEntity>): List<Pokemon> =
-        input.map { Pokemon(it.name) }
+        input.map { Pokemon(it.id, it.name, it.isFavorite) }
 
     fun mapDomainToEntity(input: Pokemon): PokemonEntity =
-        PokemonEntity(null, input.name)
-
-//    fun mapResponseToDomain(input: PokemonDetailResponse): PokemonDetail {
-//        return PokemonDetail(
-//            input.abilities,
-//            input.baseExperience,
-//            input.height,
-//            input.id,
-//            input.sprites,
-//            input.stats,
-//            input.weight
-//        )
-//    }
+        PokemonEntity(input.id, input.name, input.isFavorite)
 }

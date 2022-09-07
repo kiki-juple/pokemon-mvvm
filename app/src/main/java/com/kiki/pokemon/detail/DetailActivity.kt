@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import coil.load
 import com.kiki.core.data.source.remote.network.ApiResponse
@@ -16,34 +17,43 @@ import dagger.hilt.android.AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
-    private val viewModel by viewModels<DetailViewModel>()
+    private val detailViewModel by viewModels<DetailViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val pokemonName = intent.getParcelableExtra<Pokemon>(POKEMON)
-        pokemonName?.name?.let { showDetailPokemon(it) }
+        val pokemon = intent.getParcelableExtra<Pokemon>(POKEMON)
+        if (pokemon != null) {
+            showDetailPokemon(pokemon.name)
+            setFavorite(pokemon.isFavorite)
+            var favorite = pokemon.isFavorite
+            binding.fab.setOnClickListener {
+                favorite = !favorite
+                detailViewModel.setFavoritePokemon(pokemon, favorite)
+                setFavorite(favorite)
+            }
+        }
     }
 
     private fun showDetailPokemon(name: String) {
-        viewModel.getPokemonDetail(name).observe(this@DetailActivity) { response ->
+        detailViewModel.getPokemonDetail(name).observe(this@DetailActivity) { response ->
             when (response) {
                 is ApiResponse.Success -> {
                     response.data.apply {
                         binding.apply {
-                            pokemonImage.load(sprites?.other?.officialArtwork?.frontDefault)
+                            pokemonImage.load(sprites.other.officialArtwork.frontDefault)
                             pokemonName.text = name
                             tvExp.text = getString(R.string.exp, baseExperience)
                             tvHeight.text = getString(R.string.weight, weight)
                             tvWeight.text = getString(R.string.height, height)
-                            abilities?.forEach {
+                            abilities.forEach {
                                 val tv = TextView(this@DetailActivity)
                                 tv.text = it.ability.name
                                 layoutAbility.addView(tv)
                             }
-                            stats?.forEach {
+                            stats.forEach {
                                 val tv = TextView(this@DetailActivity)
                                 tv.text = getString(R.string.stat_item, it.stat.name, it.baseStat)
                                 layoutStats.addView(tv)
@@ -67,6 +77,24 @@ class DetailActivity : AppCompatActivity() {
                 }
                 is ApiResponse.Empty -> Unit
             }
+        }
+    }
+
+    private fun setFavorite(isFavorite: Boolean) {
+        if (isFavorite) {
+            binding.fab.setImageDrawable(
+                ContextCompat.getDrawable(
+                    this,
+                    R.drawable.ic_favorite_red
+                )
+            )
+        } else {
+            binding.fab.setImageDrawable(
+                ContextCompat.getDrawable(
+                    this,
+                    R.drawable.ic_favorite_border
+                )
+            )
         }
     }
 
