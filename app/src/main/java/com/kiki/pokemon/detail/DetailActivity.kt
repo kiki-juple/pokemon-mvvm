@@ -1,5 +1,6 @@
 package com.kiki.pokemon.detail
 
+import android.os.Build.VERSION
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -26,7 +27,12 @@ class DetailActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val pokemon = intent.getParcelableExtra<Pokemon>(POKEMON)
+        val pokemon = if (VERSION.SDK_INT >= 33) {
+            intent.getParcelableExtra(POKEMON, Pokemon::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra(POKEMON)
+        }
         if (pokemon != null) {
             showDetailPokemon(pokemon.name)
             setFavorite(pokemon.isFavorite)
@@ -101,7 +107,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
+        onBackPressedDispatcher.onBackPressed()
         return true
     }
 

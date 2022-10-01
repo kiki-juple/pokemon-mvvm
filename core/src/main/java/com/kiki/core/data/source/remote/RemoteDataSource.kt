@@ -39,11 +39,7 @@ class RemoteDataSource @Inject constructor(
         return flow {
             try {
                 val response = apiService.getPokemonDetails(name)
-                if (response.id != null) {
-                    emit(ApiResponse.Success(response))
-                } else {
-                    emit(ApiResponse.Empty)
-                }
+                emit(ApiResponse.Success(response))
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
                 Log.e("getDetailPokemon", e.toString())
