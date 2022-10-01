@@ -1,14 +1,14 @@
 version: 2.1
 
 orbs:
-  android: circleci/android@1.0.3
-  gcp-cli: circleci/gcp-cli@2.2.0
+  android: circleci/android@2.1.2
 
 jobs:
   unit-test:
     executor:
       name: android/android-machine
       resource-class: large
+      tag: 2021.10.1
     steps:
       - checkout
       - run:
@@ -34,14 +34,15 @@ jobs:
   release-build:
     executor:
       name: android/android-machine
-      resource-class: xlarge
+      resource-class: large
+      tag: 2021.10.1
     steps:
       - checkout
-      - android/restore-gradle-cache
-      - android/restore-build-cache
       - run:
           name: chmod permissions
           command: chmod +x ./gradlew
+      - android/restore-gradle-cache
+      - android/restore-build-cache
       - run:
           name: Assemble release build
           command: |
@@ -58,4 +59,4 @@ workflows:
             - unit-test
           filters:
             branches:
-              only: main # Commits to main branch
+              only: master
