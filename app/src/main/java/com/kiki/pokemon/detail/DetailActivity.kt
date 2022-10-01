@@ -8,11 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import coil.load
+import com.google.android.material.snackbar.Snackbar
 import com.kiki.core.data.source.remote.network.ApiResponse
 import com.kiki.core.domain.model.Pokemon
 import com.kiki.pokemon.R
 import com.kiki.pokemon.databinding.ActivityDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
@@ -37,7 +39,19 @@ class DetailActivity : AppCompatActivity() {
             showDetailPokemon(pokemon.name)
             setFavorite(pokemon.isFavorite)
             var favorite = pokemon.isFavorite
+            val message = if (!favorite) {
+                getString(R.string.message_add_favorite,
+                    pokemon.name.replaceFirstChar {
+                        if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString()
+                    })
+            } else {
+                getString(R.string.message_remove_favorite,
+                    pokemon.name.replaceFirstChar {
+                        if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString()
+                    })
+            }
             binding.fab.setOnClickListener {
+                Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
                 favorite = !favorite
                 detailViewModel.setFavoritePokemon(pokemon, favorite)
                 setFavorite(favorite)
@@ -52,7 +66,7 @@ class DetailActivity : AppCompatActivity() {
                     response.data.apply {
                         binding.apply {
                             pokemonImage.load(sprites.other.officialArtwork.frontDefault)
-                            pokemonName.text = name
+                            pokemonName.text = name.uppercase()
                             tvExp.text = getString(R.string.exp, baseExperience)
                             tvHeight.text = getString(R.string.weight, weight)
                             tvWeight.text = getString(R.string.height, height)
@@ -68,6 +82,7 @@ class DetailActivity : AppCompatActivity() {
                             }
                             loading.isVisible = false
                             error.isVisible = false
+                            fab.isVisible = true
                         }
                     }
                 }

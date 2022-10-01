@@ -51,25 +51,20 @@ class HomeActivity : AppCompatActivity() {
                     is Resource.Loading -> binding.loading.isVisible = true
                     is Resource.Success -> {
                         binding.loading.isVisible = false
+                        binding.fab.isVisible = true
                         pokemonAdapter.submitList(pokemon.data)
                     }
-                    is Resource.Error -> Unit
+                    is Resource.Error -> {
+                        binding.error.isVisible = true
+                        binding.tryAgain.setOnClickListener {
+                            finish()
+                            overridePendingTransition(0, 0)
+                            startActivity(intent)
+                            overridePendingTransition(0, 0)
+                        }
+                    }
                 }
             }
         }
     }
-
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.favorite_menu, menu)
-//        return true
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return if (item.itemId == R.id.favorite) {
-//            startActivity(Intent(this, com.kiki.pokemon.favorite.FavoriteActivity::class.java))
-//            true
-//        } else {
-//            super.onOptionsItemSelected(item)
-//        }
-//    }
 }

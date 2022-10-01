@@ -8,8 +8,10 @@
     <string name="weight">WEIGHT\n%d</string>
     <string name="height">HEIGHT\n%d</string>
     <string name="stat_item">%s: %d</string>
-    <string name="cannot_load_detail">Cannot load detail.</string>
+    <string name="cannot_load_detail">Cannot load data.</string>
     <string name="try_again">Try again</string>
     <string name="favorite_button">Favorite button</string>
     <string name="title_favorite">Favorite</string>
+    <string name="message_add_favorite">%s is added to Favorite</string>
+    <string name="message_remove_favorite">%s is removed from Favorite</string>
 </resources>
